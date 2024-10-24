@@ -1,14 +1,17 @@
+
 import platform
 import toga
 from toga.style import Pack
 from toga.style.pack import COLUMN
+from views.configPlayer import ConfigPlayer
+from controllers.controllerPlayer import ControllerPlayer
 
 
 class puissance4(toga.App):
     def startup(self):
         self.main_window = toga.MainWindow(title=self.formal_name)
-        self.mainBox = toga.Box(style=Pack(direction=COLUMN, background_color="#007ab7"))
-
+        """box principale ou tout va se passer"""
+        self.mainBox = toga.Box(style=Pack(direction=COLUMN, background_color="#34495e"))
 
         """création des commandes pour les boutons"""
         cmdPlayer1 = toga.Command(self.player1, text="Joueur 1", icon=toga.Icon("pictures/player.png"))
@@ -27,10 +30,10 @@ class puissance4(toga.App):
         self.main_window.show()
 
     def player1(self, widget):
-        print("Player 1")
+        self.mainBox.add(ConfigPlayer(playerNumber=1,mainBox=self.mainBox,mainWindow=self.main_window))
 
     def player2(self, widget):
-        print("Player 2")
+        self.mainBox.add(ConfigPlayer(playerNumber=2,mainBox=self.mainBox,mainWindow=self.main_window))
 
     def settingApp(self, widget):
         print("Options")
@@ -40,6 +43,8 @@ class puissance4(toga.App):
 
     def closeApp(self, widget):
         self.main_window.close()
+        ControllerPlayer().clearConfigPlayer()
+
 
 
 def main():

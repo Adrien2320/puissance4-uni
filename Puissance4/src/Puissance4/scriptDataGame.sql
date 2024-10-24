@@ -1,0 +1,5 @@
+CREATE TABLE T_Player (
+id_Player INTEGER PRIMARY KEY AUTOINCREMENT,
+name_player TEXT NOT NULL,
+color_player TEXT NOT NULL
+)

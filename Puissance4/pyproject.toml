@@ -14,13 +14,13 @@ description = "mon premier puissance4 avec ia"
 long_description = """More details about the app should go here.
 """
 sources = [
-    "src/Puissance4","src/Puissance4/pictures"
+    "src/Puissance4","src/Puissance4/pictures","src/Puissance4/controllers","src/Puissance4/models","src/Puissance4/dataBase"
 ]
 test_sources = [
     "tests",
 ]
 
-requires = [
+requires = ["db-sqlite3"
 ]
 test_requires = [
     "pytest",
