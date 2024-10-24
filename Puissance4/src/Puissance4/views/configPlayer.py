@@ -52,7 +52,7 @@ class ConfigPlayer(toga.Box):
             colorPlayer = color_map[selected_color]
         ControllerPlayer().setConfigPlayer(namePlayer=self.inputName.value,colorPlayer=colorPlayer,playerNumber=self.playerNumber)
         """self.show_message("Succès", f"Les données ont été bien enregistrées. le joueur 1 a comme nom: {self.inputName.value} et comme couleur: {selected_color}")"""
-        self.mainWindow.info_dialog("Succès", f"Les données ont été bien enregistrées, le joueur 1 a comme nom: {self.inputName.value} et comme couleur: {selected_color}")
+        self.mainWindow.info_dialog("Succès", f"Les données ont été bien enregistrées, le joueur {self.playerNumber} a comme nom: {self.inputName.value} et comme couleur: {selected_color}")
         self.mainBox.clear()
 
 
