@@ -4,12 +4,12 @@ from toga.style.pack import COLUMN,ROW,CENTER
 from controllers.controllerPlayer import ControllerPlayer
 
 class ConfigPlayerView(toga.Box):
-    def __init__(self,playerNumber:int,mainBox,mainWindow):
+    def __init__(self,playerNumber:int,mainBox,mainWindow,api):
         super().__init__(style=(Pack(direction=COLUMN,background_color="#34495e",padding=5,alignment=CENTER)))
         self.mainBox = mainBox
         self.playerNumber = playerNumber
         self.mainWindow = mainWindow
-
+        self.api = api
 
         """box pour enregistré nom du joueur"""
         nameBox = toga.Box(style=(Pack(direction=ROW,background_color="#abb2b9",alignment=CENTER,padding=10)))
@@ -34,6 +34,7 @@ class ConfigPlayerView(toga.Box):
         self.add(nameBox,colorBox,actionBox)
 
     def cancel(self,widget):
+        self.api.modifEnabledCmdPlayer(True)
         self.mainBox.clear()
 
     def register(self,widget):
@@ -50,6 +51,7 @@ class ConfigPlayerView(toga.Box):
             colorPlayer = color_map[selected_color]
         ControllerPlayer().modifConfigPlayer(namePlayer=self.inputName.value,colorPlayer=colorPlayer,playerNumber=self.playerNumber)
         self.mainWindow.info_dialog("Succès", f"Les données ont été bien enregistrées, le joueur {self.playerNumber} a comme nom: {self.inputName.value} et comme couleur: {selected_color}")
+        self.api.modifEnabledCmdPlayer(True)
         self.mainBox.clear()
 
 
@@ -85,7 +87,7 @@ class ConfigPlayerView(toga.Box):
                 colorOptions = ["ROUGE", "VERT", "BLEU", "ORANGE", "ROSE"]
             case "orange":
                 colorOptions = ["ROUGE", "VERT", "BLEU", "JAUNE", "ROSE"]
-            case "purple":
+            case "pink":
                 colorOptions = ["ROUGE", "VERT", "BLEU", "JAUNE", "ORANGE"]
             case _:
                 colorOptions = ["ROUGE", "VERT", "BLEU", "JAUNE", "ORANGE", "ROSE"]
