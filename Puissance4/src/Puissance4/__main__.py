@@ -21,6 +21,8 @@ def checkIfDataExist():
                             name_player TEXT NOT NULL,
                             color_player TEXT NOT NULL
                             )""")
+        cursor.execute("""INSERT INTO T_Player (id_Player, name_player, color_player) VALUES (1, '', '')""")
+        cursor.execute("""INSERT INTO T_Player (id_Player, name_player, color_player) VALUES (2, '', '')""")
         db.commit()
         db.close()
 

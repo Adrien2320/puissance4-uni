@@ -3,7 +3,7 @@ from toga.style import Pack
 from toga.style.pack import COLUMN,ROW,CENTER
 from controllers.controllerPlayer import ControllerPlayer
 
-class ConfigPlayer(toga.Box):
+class ConfigPlayerView(toga.Box):
     def __init__(self,playerNumber:int,mainBox,mainWindow):
         super().__init__(style=(Pack(direction=COLUMN,background_color="#34495e",padding=5,alignment=CENTER)))
         self.mainBox = mainBox
@@ -48,8 +48,7 @@ class ConfigPlayer(toga.Box):
         selected_color = self.colorSelection.value
         if selected_color in color_map:
             colorPlayer = color_map[selected_color]
-        ControllerPlayer().setConfigPlayer(namePlayer=self.inputName.value,colorPlayer=colorPlayer,playerNumber=self.playerNumber)
-        """self.show_message("Succès", f"Les données ont été bien enregistrées. le joueur 1 a comme nom: {self.inputName.value} et comme couleur: {selected_color}")"""
+        ControllerPlayer().modifConfigPlayer(namePlayer=self.inputName.value,colorPlayer=colorPlayer,playerNumber=self.playerNumber)
         self.mainWindow.info_dialog("Succès", f"Les données ont été bien enregistrées, le joueur {self.playerNumber} a comme nom: {self.inputName.value} et comme couleur: {selected_color}")
         self.mainBox.clear()
 
@@ -68,32 +67,28 @@ class ConfigPlayer(toga.Box):
            self.labelInfoColor.style.background_color = color_map[selected_color]
 
     def createListColor(self,playerNumber:int):
-        if ControllerPlayer().checkIfPlayerExist(1):
-            if playerNumber == 1:
-                result = ControllerPlayer().giveAllDataPlayer(2)
-            else:
-                result = ControllerPlayer().giveAllDataPlayer(1)
-            result = result[0]
-            colorOtherPlayer = result[2]
-
-            match colorOtherPlayer:
-                case "red":
-                    colorOptions = ["VERT", "BLEU", "JAUNE", "ORANGE", "ROSE"]
-                case "green":
-                    colorOptions = ["ROUGE", "BLEU", "JAUNE", "ORANGE", "ROSE"]
-                case "blue":
-                    colorOptions = ["ROUGE", "VERT", "JAUNE", "ORANGE", "ROSE"]
-                case "yellow":
-                    colorOptions = ["ROUGE", "VERT", "BLEU", "ORANGE", "ROSE"]
-                case "orange":
-                    colorOptions = ["ROUGE", "VERT", "BLEU", "JAUNE", "ROSE"]
-                case "purple":
-                    colorOptions = ["ROUGE", "VERT", "BLEU", "JAUNE", "ORANGE"]
-            listColor = toga.Selection(items=colorOptions, value=colorOptions[0],
-                                       style=Pack(flex=1, padding=3, width=150, font_size=15, text_align=CENTER))
-            return listColor
+        if playerNumber == 1:
+            result = ControllerPlayer().giveAllDataPlayer(2)
         else:
-            colorOptions = ["ROUGE", "VERT", "BLEU", "JAUNE", "ORANGE", "ROSE"]
-            listColor = toga.Selection(items=colorOptions, value=colorOptions[0],
-                                             style=Pack(flex=1, padding=3, width=150, font_size=15, text_align=CENTER))
-            return listColor
+            result = ControllerPlayer().giveAllDataPlayer(1)
+        result = result[0]
+        colorOtherPlayer = result[2]
+
+        match colorOtherPlayer:
+            case "red":
+                colorOptions = ["VERT", "BLEU", "JAUNE", "ORANGE", "ROSE"]
+            case "green":
+                colorOptions = ["ROUGE", "BLEU", "JAUNE", "ORANGE", "ROSE"]
+            case "blue":
+                colorOptions = ["ROUGE", "VERT", "JAUNE", "ORANGE", "ROSE"]
+            case "yellow":
+                colorOptions = ["ROUGE", "VERT", "BLEU", "ORANGE", "ROSE"]
+            case "orange":
+                colorOptions = ["ROUGE", "VERT", "BLEU", "JAUNE", "ROSE"]
+            case "purple":
+                colorOptions = ["ROUGE", "VERT", "BLEU", "JAUNE", "ORANGE"]
+            case _:
+                colorOptions = ["ROUGE", "VERT", "BLEU", "JAUNE", "ORANGE", "ROSE"]
+        listColor = toga.Selection(items=colorOptions, value=colorOptions[0],
+                                       style=Pack(flex=1, padding=3, width=150, font_size=15, text_align=CENTER))
+        return listColor

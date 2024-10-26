@@ -22,31 +22,14 @@ class DataPlayer:
         """sauvegarde les modifications appliqué à la table"""
         self.database.commit()
 
-    def setDataPlayer(self,id_player,name_player,color_player):
-        sql = """ INSERT INTO T_Player (id_player,name_player,color_player) VALUES (?,?,?)"""
-
+    def modifDataPlayer(self,id_player,name_player,color_player):
+        sql = """ UPDATE T_Player SET name_player = ?, color_player = ? WHERE id_player = ?"""
         with closing(self.cursor) as cursor:
             cursor.execute(sql,
-                           [id_player,name_player,color_player],
+                           [name_player,color_player,id_player],
                            )
             self.commit()
 
-    def clearDataPlayer(self):
-        """supprime tout le contenu de la table T_Player"""
-        sql = """DELETE FROM T_Player"""
-        with closing(self.cursor) as cursor:
-            cursor.execute(sql)
-            self.commit()
-
-    def chekIfPlayerExist(self,id_player):
-        sql = """SELECT EXISTS(SELECT 1 FROM T_Player WHERE id_Player = ?)"""
-        with closing(self.cursor) as cursor:
-            cursor.execute(sql,[id_player])
-            result = cursor.fetchone()
-            if result[0] == 1:
-                return True
-            else:
-                return False
 
     def giveAllDataPlayer(self,id_player):
         sql = """SELECT * FROM T_Player WHERE id_Player = ?"""

@@ -1,11 +1,10 @@
 
 import platform
-from importlib.metadata import pass_none
 
 import toga
 from toga.style import Pack
 from toga.style.pack import COLUMN
-from views.configPlayer import ConfigPlayer
+from views.configPlayerView import ConfigPlayerView
 from controllers.controllerPlayer import ControllerPlayer
 
 
@@ -32,10 +31,11 @@ class puissance4(toga.App):
         self.main_window.show()
 
     def player1(self, widget):
-        self.mainBox.add(ConfigPlayer(playerNumber=1,mainBox=self.mainBox,mainWindow=self.main_window))
+        self.mainBox.add(ConfigPlayerView(playerNumber=1, mainBox=self.mainBox, mainWindow=self.main_window))
+
 
     def player2(self, widget):
-        self.mainBox.add(ConfigPlayer(playerNumber=2,mainBox=self.mainBox,mainWindow=self.main_window))
+        self.mainBox.add(ConfigPlayerView(playerNumber=2, mainBox=self.mainBox, mainWindow=self.main_window))
 
 
 
@@ -47,7 +47,6 @@ class puissance4(toga.App):
 
     def closeApp(self, widget):
         self.main_window.close()
-        ControllerPlayer().clearConfigPlayer()
 
 
 
