@@ -6,6 +6,7 @@ from toga.style import Pack
 from toga.style.pack import COLUMN
 from views.configPlayerView import ConfigPlayerView
 from controllers.controllerPlayer import ControllerPlayer
+from views.headGameBoardView import HeadGameBoard
 
 
 class puissance4(toga.App):
@@ -52,7 +53,7 @@ class puissance4(toga.App):
         if not result and not result2:
             self.main_window.info_dialog("Attention", "Veuillez modifier le joueur 1 et le joueur 2, avant de lancé une partie")
         else:
-            print("OK")
+            self.mainBox.add(HeadGameBoard())
 
     def closeApp(self, widget):
         self.main_window.close()
