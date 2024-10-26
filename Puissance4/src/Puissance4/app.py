@@ -5,6 +5,7 @@ import toga
 from toga.style import Pack
 from toga.style.pack import COLUMN
 from views.configPlayerView import ConfigPlayerView
+from controllers.controllerPlayer import ControllerPlayer
 
 
 class puissance4(toga.App):
@@ -42,7 +43,16 @@ class puissance4(toga.App):
         print("Options")
 
     def play(self, widget):
-        print("Play")
+        result = ControllerPlayer().giveAllDataPlayer(1)
+        result2 = ControllerPlayer().giveAllDataPlayer(2)
+        result = result[0]
+        result = result[1]
+        result2 = result2[0]
+        result2 = result2[1]
+        if not result and not result2:
+            self.main_window.info_dialog("Attention", "Veuillez modifier le joueur 1 et le joueur 2, avant de lancé une partie")
+        else:
+            print("OK")
 
     def closeApp(self, widget):
         self.main_window.close()
