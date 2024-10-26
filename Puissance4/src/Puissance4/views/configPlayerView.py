@@ -34,7 +34,7 @@ class ConfigPlayerView(toga.Box):
         self.add(nameBox,colorBox,actionBox)
 
     def cancel(self,widget):
-        self.api.modifEnabledCmdPlayer(True)
+        self.api.modifEnabledAllCmd(cmdPlay=True,cmdEndGame=True,cmdPlayer1=True,cmdPlayer2=True,cmdSetting=True)
         self.mainBox.clear()
 
     def register(self,widget):
@@ -51,7 +51,7 @@ class ConfigPlayerView(toga.Box):
             colorPlayer = color_map[selected_color]
         ControllerPlayer().modifConfigPlayer(namePlayer=self.inputName.value,colorPlayer=colorPlayer,playerNumber=self.playerNumber)
         self.mainWindow.info_dialog("Succès", f"Les données ont été bien enregistrées, le joueur {self.playerNumber} a comme nom: {self.inputName.value} et comme couleur: {selected_color}")
-        self.api.modifEnabledCmdPlayer(True)
+        self.api.modifEnabledAllCmd(cmdPlay=True,cmdEndGame=True,cmdPlayer1=True,cmdPlayer2=True,cmdSetting=True)
         self.mainBox.clear()
 
 
