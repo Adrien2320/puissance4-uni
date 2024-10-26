@@ -1,5 +1,7 @@
 
 import platform
+from importlib.metadata import pass_none
+
 import toga
 from toga.style import Pack
 from toga.style.pack import COLUMN
@@ -34,6 +36,8 @@ class puissance4(toga.App):
 
     def player2(self, widget):
         self.mainBox.add(ConfigPlayer(playerNumber=2,mainBox=self.mainBox,mainWindow=self.main_window))
+
+
 
     def settingApp(self, widget):
         print("Options")

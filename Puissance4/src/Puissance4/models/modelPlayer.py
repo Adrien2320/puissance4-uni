@@ -37,3 +37,20 @@ class DataPlayer:
         with closing(self.cursor) as cursor:
             cursor.execute(sql)
             self.commit()
+
+    def chekIfPlayerExist(self,id_player):
+        sql = """SELECT EXISTS(SELECT 1 FROM T_Player WHERE id_Player = ?)"""
+        with closing(self.cursor) as cursor:
+            cursor.execute(sql,[id_player])
+            result = cursor.fetchone()
+            if result[0] == 1:
+                return True
+            else:
+                return False
+
+    def giveAllDataPlayer(self,id_player):
+        sql = """SELECT * FROM T_Player WHERE id_Player = ?"""
+        with closing(self.cursor) as cursor:
+            cursor.execute(sql,[id_player])
+            result = cursor.fetchall()
+            return result

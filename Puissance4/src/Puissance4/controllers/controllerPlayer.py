@@ -8,3 +8,11 @@ class ControllerPlayer:
 
     def clearConfigPlayer(self):
         DataPlayer().clearDataPlayer()
+
+    def checkIfPlayerExist(self,playerNumber:int):
+        result = DataPlayer().chekIfPlayerExist(id_player=playerNumber)
+        return result
+
+    def giveAllDataPlayer(self,playerNumber:int):
+        result = DataPlayer().giveAllDataPlayer(id_player=playerNumber)
+        return result

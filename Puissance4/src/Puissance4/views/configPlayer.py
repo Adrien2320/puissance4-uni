@@ -6,8 +6,8 @@ from controllers.controllerPlayer import ControllerPlayer
 class ConfigPlayer(toga.Box):
     def __init__(self,playerNumber:int,mainBox,mainWindow):
         super().__init__(style=(Pack(direction=COLUMN,background_color="#34495e",padding=5,alignment=CENTER)))
-        self.mainBox =mainBox
-        self.playerNumber =playerNumber
+        self.mainBox = mainBox
+        self.playerNumber = playerNumber
         self.mainWindow = mainWindow
 
 
@@ -20,11 +20,9 @@ class ConfigPlayer(toga.Box):
         """box pour choisir la couleur du joueur"""
         colorBox = toga.Box(style=Pack(direction=ROW, background_color="#abb2b9", alignment=CENTER, padding=10))
         labelColor = toga.Label(text=f"COULEUR DU JOUEUR {playerNumber}", style=Pack(padding=3, font_size=15, text_align=CENTER, font_weight="bold"))
-        colorOptions = ["ROUGE", "VERT", "BLEU", "JAUNE", "ORANGE","ROSE"]
-        self.colorSelection = toga.Selection(items=colorOptions,value="ROUGE", style=Pack(flex=1, padding=3, width=150,font_size=15,text_align=CENTER))
+        self.colorSelection = self.createListColor(self.playerNumber)
         self.colorSelection.on_select = self.changeColor
-        self.labelInfoColor = toga.Label(text="",style=Pack(padding=3,width=30,height=30,background_color="red"))
-
+        self.labelInfoColor = toga.Label(text="",style=Pack(padding=3,width=30,height=30,background_color="gray"))
         colorBox.add(labelColor,self.labelInfoColor,self.colorSelection)
 
         """box pour le bouton annulé et enregistré"""
@@ -68,3 +66,34 @@ class ConfigPlayer(toga.Box):
         selected_color = widget.value
         if selected_color in color_map:
            self.labelInfoColor.style.background_color = color_map[selected_color]
+
+    def createListColor(self,playerNumber:int):
+        if ControllerPlayer().checkIfPlayerExist(1):
+            if playerNumber == 1:
+                result = ControllerPlayer().giveAllDataPlayer(2)
+            else:
+                result = ControllerPlayer().giveAllDataPlayer(1)
+            result = result[0]
+            colorOtherPlayer = result[2]
+
+            match colorOtherPlayer:
+                case "red":
+                    colorOptions = ["VERT", "BLEU", "JAUNE", "ORANGE", "ROSE"]
+                case "green":
+                    colorOptions = ["ROUGE", "BLEU", "JAUNE", "ORANGE", "ROSE"]
+                case "blue":
+                    colorOptions = ["ROUGE", "VERT", "JAUNE", "ORANGE", "ROSE"]
+                case "yellow":
+                    colorOptions = ["ROUGE", "VERT", "BLEU", "ORANGE", "ROSE"]
+                case "orange":
+                    colorOptions = ["ROUGE", "VERT", "BLEU", "JAUNE", "ROSE"]
+                case "purple":
+                    colorOptions = ["ROUGE", "VERT", "BLEU", "JAUNE", "ORANGE"]
+            listColor = toga.Selection(items=colorOptions, value=colorOptions[0],
+                                       style=Pack(flex=1, padding=3, width=150, font_size=15, text_align=CENTER))
+            return listColor
+        else:
+            colorOptions = ["ROUGE", "VERT", "BLEU", "JAUNE", "ORANGE", "ROSE"]
+            listColor = toga.Selection(items=colorOptions, value=colorOptions[0],
+                                             style=Pack(flex=1, padding=3, width=150, font_size=15, text_align=CENTER))
+            return listColor
