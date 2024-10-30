@@ -25,7 +25,6 @@ def checkIfDataExist():
         db.commit()
         db.close()
     else:
-        print("reset db player")
         db = sqlite3.connect(db_path)
         cursor = db.cursor()
         cursor.execute("""UPDATE T_Player SET name_player = '', color_player = '' WHERE id_player = 1""")

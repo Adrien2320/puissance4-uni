@@ -8,13 +8,14 @@ from toga.style.pack import COLUMN
 from views.configPlayerView import ConfigPlayerView
 from controllers.controllerPlayer import ControllerPlayer
 from views.headGameBoardView import HeadGameBoard
+from views.gameBoardView import GameBoardView
 
 
 class puissance4(toga.App):
     def startup(self):
         self.main_window = toga.MainWindow(title=self.formal_name)
         """box principale ou tout va se passer"""
-        self.mainBox = toga.Box(style=Pack(direction=COLUMN, background_color="#34495e"))
+        self.mainBox = toga.Box(style=Pack(direction=COLUMN, background_color="#34495e",flex=1))
 
         """création des commandes pour les boutons"""
         self.cmdPlay = toga.Command(self.play, text="Jouer", icon=toga.Icon("pictures/play.png"),order=0)
@@ -57,7 +58,7 @@ class puissance4(toga.App):
             self.main_window.info_dialog("Attention", "Veuillez modifier le joueur 1 et le joueur 2, avant de lancé une partie")
         else:
             self.modifEnabledAllCmd(cmdPlay=False, cmdEndGame=True, cmdPlayer1=False, cmdPlayer2=False,cmdSetting=False)
-            self.mainBox.add(HeadGameBoard())
+            self.mainBox.add(HeadGameBoard(),GameBoardView())
 
 
     def closeApp(self, widget):
@@ -70,7 +71,7 @@ class puissance4(toga.App):
         self.cmdPlayer2.enabled= cmdPlayer2
         self.cmdSetting.enabled= cmdSetting
 
-    def ExitGame(self):
+    def ExitGame(self, widget):
         pass
 
 
